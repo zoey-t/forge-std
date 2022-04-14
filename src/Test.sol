@@ -44,6 +44,17 @@ abstract contract Test is DSTest {
         vm.prank(who, origin);
     }
 
+    // Setup a prank from an address with some erc20 token balance
+    function hoaxERC20(address who, address token, uint256 give) public {
+        vm.deal(token, who, give);
+        vm.prank(who);
+    }
+
+    function hoaxERC20(address who, address token, uint256 give, bool adjust) public {
+        vm.deal(token, who, give, adjust);
+        vm.prank(who);
+    }
+
     // Start perpetual prank from an address that has some ether
     function startHoax(address who) public {
         vm.deal(who, 1 << 128);
@@ -53,6 +64,17 @@ abstract contract Test is DSTest {
     function startHoax(address who, uint256 give) public {
         vm.deal(who, give);
         vm.startPrank(who);
+    }
+
+    // Start perpetual prank from an address with some erc20 token balance
+    function startHoaxERC20(address who, address token, uint256 give) public {
+        vm.deal(token, who, give);
+        vm.prank(who);
+    }
+
+    function startHoaxERC20(address who, address token, uint256 give, bool adjust) public {
+        vm.deal(token, who, give, adjust);
+        vm.prank(who);
     }
 
     // Start perpetual prank from an address that has some ether
